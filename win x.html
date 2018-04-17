@@ -1,0 +1,1707 @@
+<!-- Created by alik kumar ghosh-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>WindowsX</title>
+        <script>// Created by alik
+
+/*
+decoded
+decoded
+decoded
+decoded "========================"
+decoded ".                      "
+decoded ".                      "
+decoded ".   windowsX was       "
+decoded ".   created By         "
+decoded ".        alik          "
+decoded ".                      "
+decoded "======================="
+decoded.        ========
+decoded.          ====
+decoded.          ====
+decoded.       ==========
+*/
+var WindowsX={
+password:rand(1000,9999),
+menuArr:["#call","#music","#settings",
+"#google","#calculator","#wallpaper","#tentacleGame","#soloCodes","#paintCanvas","#extraLogoMenu"],
+battery:0,
+load:"",
+time:"00:00",
+color:"black",
+audioPlayedOnce:false,
+menuSound:true,
+calcOpenedOnce:false,
+calcValue:"",
+soloOpenedOnce:false,
+wallPapers:[
+"https://wallpapershome.com/images/pages/pic_hs/12771.jpg"
+,
+"http://oswallpapers.com/wp-content/uploads/2016/06/img0.jpg"
+,
+"http://www.technocrazed.com/wp-content/uploads/2015/12/Windows-XP-wallpaper-15.jpg"
+,
+"https://www.technorms.com/assets/1-starter-image33.jpg"
+],
+gameRender:false
+}
+alert("coded by akg \n*Login password is "+WindowsX.password+"\n*adding some developments");
+var contacts=[
+{
+name:"iit",
+id:"2034558"
+},        
+{
+name:"akg",
+id:"197327"
+},
+{
+name:"sy",
+id:"2551505"
+},
+{
+name:"sg",
+id:"7532653"
+},
+{
+name:"alik",
+id:"6860646"    
+},
+{
+name:"ag",
+id:"3229486"
+},
+{
+name:"om",
+id:"6272751"
+},
+{
+name:"rg",
+id:"4944198"
+},
+{
+name:"xyz",    
+id:"3075471"    
+},
+{
+name:"akg",
+id:"1607351"
+}
+];
+artists=[
+{
+name:"Alan Walker",
+song:"faded my fav",
+src:"http://drive.funados-radio.fr/playlist/HITS%20DU%20MOMENT/Alan%20Walker%20-%20Faded.mp3"
+},
+{
+name:"ed-sheeran",
+song:"Shape of you",
+src:"http://dl2.djring.com/sd2.djring.com/128/479068/Shape%20of%20You%20-%20Ed%20Sheeran%20(DJJOhAL.Com).mp3"
+},
+{
+name:"justin bieber",
+song:"cold water",
+src:"http://dl2.djring.com/sd1.djring.com/128/474895/Cold+Water+-+Major+Lazer+Justin+Bieber%20(DJJOhAL.Com).mp3"
+},
+{
+name:"clean-bandit",
+song:"rockabye",
+src:"http://tegos.kz/new/mp3_full/Clean_Bandit_-_Rockabye.mp3"
+} 
+];
+audio=[];
+
+window.onload=load;
+
+function load(){
+$("h1").eq(0).remove();
+$("#windows").css({
+"opacity":"1"
+});
+
+color=$("#select").val();
+$("#select").on("change",updateValue);
+$("#time").on("change",updateTimeValue);
+
+getTime();
+getBattery();
+$("#login").hide();
+$("#backToMenu").hide();
+$("#backToMenu").click(
+backToMenu);
+$("#menu").hide();
+$("#callMenu").hide();
+$("#songMenu").hide();
+$("#songCancel").hide();
+$("#settingsMenu").hide();
+$("#googleMenu").hide();
+$("#calcMenu").hide();
+$("#wallMenu").hide();
+$("#tentacleCanvas").hide();
+$("#soloMenu").hide();
+$("#paintMenu").hide();
+$("#extraMenu").hide();
+setGameCanvas();
+addScrollEvent();
+//displayMenu();
+//$("#loading").hide();
+$("#bar").hide();
+createLoadCircles(20,80,8,1.5,"WindowsX is loading","#loading");
+
+}
+function setGameCanvas(){
+canvas=document.querySelector("#tentacleCanvas"); 
+canvas.width=296;
+canvas.height=170;   
+ctx=canvas.getContext("2d");  
+ canvas.addEventListener("touchstart",check)
+Gameprops={
+isRender:false,
+points:[],
+score:0,
+color:[],
+colorIterator:0,
+polygonPos:[],
+callOtherfunc:0
+}
+createPoints();
+createPolygonPos(150,80);
+CanvasPlay(); 
+
+}
+
+
+function addScrollEvent(){
+ $("#wallMenu").scroll(function() { 
+if($("#wallMenu").scrollTop() >0&&
+$("#wallMenu").scrollTop()<80
+) { 
+$("#wall1").css({
+"width":"170px",
+"left":"20%"
+});
+$("#wall2").css({
+"width":"110px",
+"left":"30%"
+});
+$("#wall3").css({
+"width":"110px",
+"left":"30%"
+});
+$("#wall4").css({
+"width":"110px",
+"left":"30%"
+});
+ } 
+else if($("#wallMenu").scrollTop() >80&&
+$("#wallMenu").scrollTop()<200){
+$("#wall1").css({
+"width":"110px",
+"left":"30%"
+});
+$("#wall2").css({
+"width":"170px",
+"left":"20%"
+});
+$("#wall3").css({
+"width":"110px",
+"left":"30%"
+});
+$("#wall4").css({
+"width":"110px",
+"left":"30%"
+});
+ } 
+
+ else if($("#wallMenu").scrollTop() >200&&
+$("#wallMenu").scrollTop()<320){
+
+$("#wall1").css({
+"width":"110px",
+"left":"30%"
+});
+$("#wall2").css({
+"width":"110px",
+"left":"30%"
+});
+$("#wall3").css({
+"width":"170px",
+"left":"20%"
+});
+$("#wall4").css({
+"width":"110px",
+"left":"30%"
+});
+
+ } 
+ else if($("#wallMenu").scrollTop() >320){
+$("#wall1").css({
+"width":"110px",
+"left":"30%"
+});
+$("#wall2").css({
+"width":"110px",
+"left":"30%"
+});
+$("#wall3").css({
+"width":"110px",
+"left":"30%"
+});
+$("#wall4").css({
+"width":"170px",
+"left":"20%"
+});
+
+ } 
+ 
+}
+);  
+    
+}
+function createLoadCircles(min,max,space,time,text,elem){
+var delay=0;
+$("#loading").text(text);
+for(var i=min;i<max;i+=space){
+Circle=$("<div>").addClass("load-circle");
+Circle.css({
+"position":"absolute",
+"top":"50%",
+"left":i+"%",
+"animation":"load-animation 1s linear alternate infinite",
+"-webkit-animation":"load-animation 1s linear alternate infinite",
+"-moz-animation":"load-animation 1s linear alternate infinite",
+"-oz-animation":"load-animation 1s linear alternate infinite",
+"animation-delay":delay+"s"
+});
+$("#loading").append(Circle);
+delay+=0.2;
+} 
+WindowsX.load=elem;
+setTimeout(removeLoader,time*1000);  
+}
+function removeLoader(){
+$("#loading").text("");
+$("#loading").hide();
+if(WindowsX.load=="#loading"){
+loginPopUp(1,34);
+
+}
+else if(WindowsX.load=="#songMenu"){
+$("#songMenu").show();
+$("#songCancel").show();
+}
+else if(WindowsX.load=="#tentacleCanvas"){
+$("#tentacleCanvas").show(); 
+$("#backToMenu").show();
+Gameprops.isRender=true;
+CanvasPlay();
+}
+else if( WindowsX.load=="#soloMenu")
+{$("#soloMenu").show();
+$("#backToMenu").show();
+}
+}
+function loginPopUp(time,moveTo){
+$("#login").show();
+$("#loginTime").text(WindowsX.time);
+$("#login").animate(
+{
+top:moveTo+"%"
+},time*1000); 
+$("#enter").animate(
+{opacity:1},
+time*3000
+);
+$("#enter").click(
+function(){
+var pWord=document.querySelector("#password").value;
+if(pWord==WindowsX.password){
+var time=0.5;
+loginPopUp(time,50);
+new Audio("http://www.winhistory.de/more/winstart/mp3/winxp.mp3").play();
+setTimeout(
+function(){
+$("#login").hide();
+
+displayMenu();
+},time*1000);
+}
+else if(/\s/.test(
+document.querySelector("#password").value
+)){
+alert("password should not contain spaces");
+document.querySelector("#password").value="";
+}
+else if(
+document.querySelector("#password").value.length!=4
+){
+alert("password must be 4 digits");
+document.querySelector("#password").value="";
+}
+else{
+alert("wrong password,password is "+WindowsX.password);
+document.querySelector("#password").value="";
+}
+}
+);        
+}
+function displayMenu(){
+$("#menu").show(); 
+
+
+var i=0;
+var t1=setInterval(
+function(){
+$(WindowsX.menuArr[i]).animate({
+opacity:"1"
+},900);
+i++;if(i==WindowsX.menuArr.length){
+clearInterval(t1);
+}
+},300); 
+$("#bar").show();
+$("#songCancel").click(
+function(){
+audio[prevIndex].pause();
+}
+);
+//alikthehacker
+$("#googleSearch").keyup(function(e) {
+if (e.which == 13) {
+var val = $("#googleSearch").val();
+val = val.replace(/\s/ig, "+");
+var link = "http://google.com/search?q=" + val;
+            window.open(link);
+        }
+}); 
+$("#searchBox>button").click(
+function(){
+var val = $("#googleSearch").val();   
+val = val.replace(/\s/ig, "+");
+var link = "http://google.com/search?q=" + val;
+            window.open(link);  
+  }    
+);
+
+$("#r1").click(
+function(){
+toggleSwitch("#s1","right");
+}
+);   
+$("#l1").click(
+function(){
+toggleSwitch("#s1","left");
+}
+);     
+$("#hideExtraMenu").click(
+SlideOutExtra)
+
+//made by alik ghosh 
+document.querySelector("#musicRange").oninput=adjustMouse;
+$("#call").click(Call);   
+$("#music").click(Music); 
+$("#settings").click(Settings); 
+$("#google").click(Google); 
+$("#calculator").click(Calc); 
+$("#wallpaper").click(Wpaper);
+$("#tentacleGame").click(Tgame);
+$("#soloCodes").click(Sololearn);
+$("#extraMenuLogo").click(SlideInExtra);
+}
+function backToMenu(){
+$("#menu").show();
+if(WindowsX.menuSound){
+new Audio("http://www.winhistory.de/more/winstart/mp3/winxp.mp3").play();
+}
+$("#backToMenu").hide();
+/*call*/
+$(".callLog").remove();
+$("#callUserLogo").html("");
+$("#callMenu").hide();
+/*call-end*/
+/*music*/
+$(".artist").remove();
+$("#songMenu").hide();
+$("#songCancel").hide();
+/*music ends*/
+/*settings*/
+$("#settingsMenu").hide();
+/*settings ends*/
+/*google*/
+$("#googleMenu").hide();
+/*google ends*/
+/*calc*/
+$("#calcMenu").hide();
+/*calc ends*/
+$("#wallMenu").hide();
+$("#tentacleCanvas").hide();
+$("#soloMenu").hide();
+$("#paintMenu").hide();
+Gameprops.isRender=false;
+for(var i=0;i<WindowsX.menuArr.length;i++){
+$(WindowsX.menuArr[i]).show();
+$(WindowsX.menuArr[i]).css({
+"opacity":"0"});
+}
+var i=0;
+var t1=setInterval(
+function(){
+$(WindowsX.menuArr[i]).animate({
+opacity:"1"
+},900);
+i++;if(i==WindowsX.menuArr.length){
+clearInterval(t1);
+}
+},100);
+
+}
+
+"all call functions start";
+function Call(){
+$("#backToMenu").show();
+for(var i=0;i<WindowsX.menuArr.length;i++)
+{
+$(WindowsX.menuArr[i]).hide();
+$(WindowsX.menuArr[i]).css({
+"opacity":"0"});
+}
+sortContact();    
+$("#callMenu").show(); 
+$("#callUser").hide();    
+}
+
+function sortContact(){
+$("#callUser").hide();
+var n=0;
+for(var k=20;k<70;k+=40){
+for(var i=5;i<95;i+=18){
+CallLogs=
+$("<div>").addClass("callLog");
+CallLogs.css({
+"left":"40%",
+"top":"40%",
+"background-image":"url(https://api.sololearn.com/Uploads/Avatars/"+contacts[n].id+".jpg)"
+});
+CallLogs.animate({
+left:i+"%",top:k+"%"
+},2000);
+$("#callMenu").append(CallLogs);
+n++;
+}
+
+}
+$(".callLog").click(
+function(){ 
+callDetails($(this).index());
+}
+);
+}
+
+
+function callDetails(index){
+for(var i=0;i<$(".callLog").length;i++){
+$(".callLog").eq(i).hide();
+}
+$("#callUser").show();
+$("#callUserName").text(contacts[index-1].name+"📱+"+contacts[index-1].id);
+$("#callUserImg").css({
+"background-image":"url(https://api.sololearn.com/Uploads/Avatars/"+contacts[index-1].id+".jpg)"});
+$("#callUserLogo").append("<a style='color:black' href='https://www.sololearn.com/Profile/"+contacts[index-1].id+"/?ref=app'>CALL</a>");
+}
+
+"all call functions end";
+
+"music functions begin";
+
+function Music(){
+WindowsX.audioPlayedOnce=true;
+$("#loading").show();
+for(var i=0;i<artists.length;i++){
+audio.push(new Audio(artists[i].src));
+}
+createLoadCircles(20,80,8,0.7,"loading songs","#songMenu");
+setTimeout(
+'$("#backToMenu").show()',3000);
+
+for(var i=0;i<WindowsX.menuArr.length;i++)
+{
+$(WindowsX.menuArr[i]).hide();
+$(WindowsX.menuArr[i]).css({
+"opacity":"0"});
+}   
+sortSongs();    
+    
+}
+
+function sortSongs(){
+var n=0;
+for(var i=10;i<80;i+=86/4)    
+{
+SongArtiste=$("<div>").addClass("artist");
+SongArtiste.css({
+"top":"20%"
+});
+SongArtiste.animate({top:i+"%"},2000);
+$(SongArtiste).text(artists[n].song);    
+$("#songMenu").append(SongArtiste); 
+n++;   
+}    
+$(".artist").click(
+function(){ 
+songDetails($(this).index());
+}
+); 
+
+prevIndex=0;  
+}
+
+function songDetails(index){
+if(prevIndex==index)
+{
+audio[prevIndex].play();
+}
+else{
+audio[prevIndex].pause();
+audio[index].play();
+}
+for(var i=0;i<4;i++){
+if(i==index)
+{
+$(".artist").eq(i).css({
+"background-color":"red"
+});}
+else
+{
+$(".artist").eq(i).css({
+"background":"none"
+});}
+}
+prevIndex=index;
+}
+"all song functions end here"
+
+"all settings functions begins"
+
+function Settings(){
+$("#backToMenu").show();
+for(var i=0;i<WindowsX.menuArr.length;i++)
+{
+$(WindowsX.menuArr[i]).hide();
+$(WindowsX.menuArr[i]).css({
+"opacity":"0"});
+}  
+$("#settingsMenu").show();  
+}
+"all settings functions end";
+"all google functions"
+function Google(){
+$("#backToMenu").show();
+for(var i=0;i<WindowsX.menuArr.length;i++)
+{
+$(WindowsX.menuArr[i]).hide();
+$(WindowsX.menuArr[i]).css({
+"opacity":"0"});
+}  
+$("#googleMenu").show();  
+   
+}
+
+"all google functions end"
+"all calc functions begin"
+function Calc(){
+$("#backToMenu").show();
+for(var i=0;i<WindowsX.menuArr.length;i++)
+{
+$(WindowsX.menuArr[i]).hide();
+$(WindowsX.menuArr[i]).css({
+"opacity":"0"});
+}  
+if(!WindowsX.calcOpenedOnce)setCalc(); 
+WindowsX.calcOpenedOnce=true; 
+$("#calcMenu").show();     
+}
+
+function setCalc(){
+$("#calcButtons>button").click(
+function(){
+calcInput($(this).index());
+}
+);  
+$("#calcButtons2>button").click(
+function(){
+calcInput2($(this).index());
+}
+); 
+}
+function calcInput(index){
+var txt=$("#calcButtons>button").eq(index).html();
+if(txt=="=")
+{ 
+WindowsX.calcValue=WindowsX.calcValue.replace(/π/ig, Math.PI);
+WindowsX.calcValue=WindowsX.calcValue.replace(/×/ig, "*");
+WindowsX.calcValue=WindowsX.calcValue.replace(/÷/ig, "/");
+WindowsX.calcValue=WindowsX.calcValue.replace(/\^/ig, "**");
+WindowsX.calcValue=WindowsX.calcValue.replace(/e/ig, Math.E);
+
+
+
+
+try{
+WindowsX.calcValue=eval(WindowsX.calcValue);
+if($("#calcMode>input").eq(0).is(":checked"))
+{
+$("#calcScreen").text(WindowsX.calcValue.toFixed(10));
+}
+else{
+$("#calcScreen").text(WindowsX.calcValue.toFixed(0));
+}
+}
+catch(e){
+if($("#calcMode>input").eq(1).is(":checked")){
+alert(e);
+}
+$("#calcScreen").text("INPUT ERROR");
+WindowsX.calcValue="";
+}
+
+}
+else if(txt=="C"){
+WindowsX.calcValue="";
+$("#calcScreen").text("");    
+}
+else if(txt=="⬅️"){
+WindowsX.calcValue=
+WindowsX.calcValue.slice(0,
+WindowsX.calcValue.length-1
+);
+$("#calcScreen").text(WindowsX.calcValue);
+}
+else{
+WindowsX.calcValue+=txt;
+if(WindowsX.calcValue.length>12){
+WindowsX.calcValue=WindowsX.calcValue.slice(0,12);
+}
+$("#calcScreen").text(WindowsX.calcValue);
+}
+}
+
+function calcInput2(index){
+var txt=$("#calcButtons2>button").eq(index).html();
+alert("The "+txt+" function is unstable and cannot be used");
+
+
+}
+"all calc functions end"
+
+function Wpaper(){
+$("#backToMenu").show();
+for(var i=0;i<WindowsX.menuArr.length;i++)
+{
+$(WindowsX.menuArr[i]).hide();
+$(WindowsX.menuArr[i]).css({
+"opacity":"0"});
+}  
+$("#wallMenu").show(); 
+$(".walls").click(
+function(){
+wallChange($(this).index());
+}
+); 
+}
+
+function wallChange(index){
+$("#screen").css({
+"background-image":"url("+WindowsX.wallPapers[index]+")"
+});
+}
+ 
+function Tgame(){
+
+$("#loading").show();
+for(var i=0;i<WindowsX.menuArr.length;i++)
+{
+$(WindowsX.menuArr[i]).hide();
+$(WindowsX.menuArr[i]).css({
+"opacity":"0"});
+} 
+createLoadCircles(20,80,8,3.2,"Click a Green shape to gain score","#tentacleCanvas");
+
+} 
+function CanvasPlay(){
+Gameprops.callOtherfunc++;
+ctx.clearRect(0,0,canvas.width,canvas.height);
+if(
+Gameprops.callOtherfunc%15==0
+){
+setColor();
+}
+drawPolygon(150,80,"orange");
+updateBar();
+for(var i=0;i<Gameprops.polygonPos.length;i++)
+{
+drawPolygon(
+Gameprops.polygonPos[i].x,
+Gameprops.polygonPos[i].y,
+Gameprops.color[i]
+);
+}
+if(Gameprops.isRender)
+requestAnimationFrame(CanvasPlay);
+}
+function createPoints(){
+for(var i=-60;i<=300;i+=60)
+{
+var j = i/57.2958;
+var x=Math.floor(Math.cos(j)*25);
+var y=Math.floor(Math.sin(j)*25);
+Gameprops.points.push({x:x,y:y});
+}
+}
+function createPolygonPos(a,b){
+for(var i=60;i<420;i+=60)
+{
+var j = i/57.2958;
+var x=Math.floor(Math.cos(j)*55);
+var y=Math.floor(Math.sin(j)*55);
+Gameprops.polygonPos.push({x:x+a,y:y+b});
+Gameprops.color.push("red");
+}
+}
+function drawPolygon(x,y,color){
+ctx.beginPath(); 
+ctx.fillStyle=color;
+ctx.lineWidth=2;
+ctx.moveTo(Gameprops.points[0].x+x,
+Gameprops.points[0].y+y);   
+for(var i=1;i<Gameprops.points.length;i++){
+ctx.lineTo(Gameprops.points[i].x+x,
+Gameprops.points[i].y+y);
+
+}
+ctx.fill();
+ctx.stroke();    
+}
+
+function setColor(){
+for(var i=0;i<Gameprops.color.length;i++){
+if(i==Gameprops.colorIterator){   
+Gameprops.color[i]="green";    
+}
+else{
+Gameprops.color[i]="red";
+}
+}
+Gameprops.colorIterator++;
+if(Gameprops.colorIterator==
+Gameprops.color.length)
+Gameprops.colorIterator=0;
+}
+
+function check(){
+var t=$("#windows").position();
+t=t.top;
+var a=event.touches[0].pageX;
+var b=event.touches[0].pageY;
+if(a>205&&a<255&&b>80+t&&b<130+t){
+check2(0)
+}
+else if(a>177&&a<177+50&&b>127+t&&b<127+50+t){
+check2(1)
+}
+else if(a>122&&a<122+50&&b>127+t&&b<127+50+t){
+check2(2)
+}
+else if(a>95&&a<95+50&&b>80+t&&b<130+t){
+check2(3)
+}
+else if(a>122&&a<122+50&&b>32+t&&b<32+50+t){
+check2(4)
+}
+else if(a>177&&a<177+50&&b>32+t&&b<32+50+t){
+check2(5)
+}
+
+
+   
+}
+function check2(index){
+if(Gameprops.colorIterator==index){
+Gameprops.score++;
+}
+}
+
+function updateBar(){
+ctx.beginPath();
+ctx.fillStyle="yellow";
+ctx.rect(5,25,55,30);
+ctx.fill();
+ctx.fillStyle="black";
+ctx.font="20px Arial";
+ctx.fillText("score",10,18);
+ctx.fillText(""+Gameprops.score,10,46);
+}
+ 
+ function Sololearn(){
+
+$("#loading").show();
+createLoadCircles(20,80,8,2.5,"akgware is loading","#soloMenu");
+if(!WindowsX.soloOpenedOnce){
+$("#soloMenu").attr("src","https://akgware.tk");
+}
+for(var i=0;i<WindowsX.menuArr.length;i++)
+{
+$(WindowsX.menuArr[i]).hide();
+$(WindowsX.menuArr[i]).css({
+"opacity":"0"});
+}  
+WindowsX.soloOpenedOnce=true;
+
+}
+ 
+function SlideInExtra(){
+$("#extraMenu").show();  
+$("#extraMenu").animate({
+"left":"0%"
+},1000);  
+}
+function SlideOutExtra(){
+$("#extraMenu").animate({
+"left":"-59%"
+},1000);  
+setTimeout(
+function(){
+$("#extraMenu").hide();
+}
+,1000);    
+}
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    /**predefined functions**/
+function rand(min,max){
+return Math.floor(Math.random()*(max-min)+min);
+} 
+
+function getBattery(){
+if("getBattery" in navigator){
+navigator.getBattery().then(function(battery){
+WindowsX.battery =Math.floor(battery.level * 100) + "%";
+$("#bar").text("battery:"+WindowsX.battery+"......📶......."+WindowsX.time)
+ status = battery.charging;
+       }
+); 
+}
+setTimeout(getBattery,1000);        
+} 
+function updateValue() 
+{ 
+$("#windows").css({
+"background":"linear-gradient(10deg,#555,"+this.value+")"
+});
+$("#stand").css({
+"background-color":""+this.value
+});
+} 
+function updateTimeValue(){
+ WindowsX.time=this.value;  
+ $("#loginTime").text(WindowsX.time);
+}
+function getTime(){
+WindowsX.time=Date().slice(15,21);
+}
+function adjustMouse(){
+if( WindowsX.audioPlayedOnce){
+for(var i=0;i<4;i++){
+audio[i].volume=this.value/100;
+}
+}
+}
+function toggleSwitch(index,direction){
+if(direction=="right"){  
+$(index).animate({
+"left":"50%",
+ },1000);  
+document.querySelector(index).style.background="red"; 
+WindowsX.menuSound=true;
+}
+else if(direction=="left"){
+ $(index).animate({
+"left":"5%"
+ },1000);  document.querySelector(index).style.background="grey";
+ WindowsX.menuSound=false;
+ }
+}
+        </script>
+       <script src="http://code.jquery.com/jquery-3.1.1.js"></script>
+           
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+        <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0" />
+        <style>
+        /* Created by alik*/
+
+
+/*
+decoded
+decoded
+decoded
+decoded "========================"
+decoded ".                      "
+decoded ".                      "
+decoded ".   windowsX was       "
+decoded ".   created By         "
+decoded ".     alik           "
+decoded ".                      "
+decoded "======================="
+decoded.        ========
+decoded.          ====
+decoded.          ====
+decoded.       ==========
+*/
+
+html{
+--wColor:#000;
+--wColor2:#555;
+}
+body {
+   background-color:blue; 
+   color:black;
+   font-weight:800;
+}
+div{
+position:absolute;
+}
+#windows{
+left:0%;
+top:80px;
+width:298px;
+height:180px;
+padding:9px;
+background:linear-gradient(10deg,var(--wColor2),var(--wColor));
+border:2px solid grey;
+border-radius:5px;
+opacity:0;
+}
+#screen{
+width:296px;
+height:170px;
+background:url(http://www.technocrazed.com/wp-content/uploads/2015/12/Windows-XP-wallpaper-15.jpg);
+background-size:cover;
+overflow-y:hidden;
+}
+#backToMenu{
+width:40px;
+height:15px;
+padding-top:2px;
+background-color:red;
+left:86%;
+border:1px solid blue;
+text-align:center;
+font-weight:700;
+font-size:13px;
+}
+#stand{
+top:101%;
+left:10%;
+width:260px;
+height:100px;
+background-color:var(--wColor);
+clip-path: polygon(30% 0%,40% 10%,40% 30%,20% 45%,20% 48%,75% 48%,75% 45%,55% 30%,55% 10%,65% 0%);
+}
+#mousepad{
+top:75%;
+left:17%;
+width:200px;
+height:110px;
+background-color:grey;
+border:1px solid var(--wColor);
+}
+#mouse{
+left:40%;
+top:10%;
+width:40px;
+height:60px;
+border-radius:20% 20% 50% 50%;
+background-color:var(--wColor);
+border:3px solid blue;
+}
+#mouse:after{
+content:'';    
+position:absolute;
+width:30px;
+height:30px;
+top:30%;
+left:10%;
+border-radius:20% 20% 50% 50%;
+background-color:red;  
+border:1px solid blue; 
+}
+#loading{
+width:210px;
+height:60px;
+left:13%;
+top:30%;
+font-size:12px;
+font-weight:800;
+font-family:serif;
+padding-left:8px;
+background-color:white;
+border:1px solid black;
+}
+.load-circle{
+width:7px;    
+height:7px;
+top:50%;
+border-radius:50%;
+background-color:red;
+}
+@keyframes load-animation{
+from{
+width:7px;
+height:7px;
+}    
+to{
+width:12px;
+height:12px;
+}    
+}
+#login{
+top:45%;
+left:25%;
+width:130px;    
+height:46px; 
+background-color:#5555ff;  
+padding:10px; 
+}
+#password,#enter{
+width:130px;
+height:20px;
+background-color:white;
+}
+#loginTime{
+width:200px;
+height:50px;
+background-color:none;
+top:-80%;
+left:-18%;
+text-align:center;
+font-size:40px;
+color:white;
+}
+#enter{
+top:62%;
+opacity:0;
+width:127px;
+background-color:#0000aa;
+font-weight:700;
+padding-left:7px;
+}
+
+#menu{
+
+width:296px;
+height:140px;
+background-color:none;
+}
+img{
+width:35px;
+height:35px;
+}
+#call,#music,#settings,#google,#calculator,#wallpaper,#tentacleGame,#soloCodes{
+width:35px;
+height:35px;
+padding-left:14px;
+padding-right:14px;
+padding-top:2px;
+padding-bottom:5px;
+opacity:0;
+}
+#call{
+top:10%;
+left:4%;
+background-color:green;
+}
+#music{
+top:10%;
+left:27%;
+background-color:yellow;
+}
+#settings{
+top:10%;
+left:50%;
+background-color:red;
+}
+#google{
+top:10%;    
+left:73%;
+background-color:white;    
+}
+#calculator{
+top:45%;
+left:4%;
+background-color:black;
+}
+#wallpaper{
+top:45%;
+left:27%;
+background-color:white;
+}
+#tentacleGame{
+top:45%;
+left:50%;
+background-color:green;
+width:90px;
+height:80px;
+padding-left:26px;
+}
+#tentacleGame>img{
+width:70px;  
+height:70px;  
+}
+#soloCodes{
+top:78%;
+left:4%;
+width:104px;
+height:34px;
+background-color:white;
+}
+#soloCodes>img{
+width:100px;
+height:35px;
+}
+#paintCanvas{
+top:110%;
+ left:4%;   
+ background-color:#aaaaff;
+ width:104px;
+}
+#paintCanvas>img{
+width:100px;
+height:35px;
+}
+#extraMenuLogo,#hideExtraMenu{
+top:90%;
+left:3%;
+width:25px;
+height:24.5px;
+padding-bottom:0.5px;
+background-color:green;
+border-radius:50%;
+text-align:center;
+font-size:23px;
+color:white;
+border:2px solid black;
+}
+.callPicture{
+top:50%;
+}
+#callMenu{
+width:286px;
+height:170px;
+padding-left:10px;
+background:linear-gradient(30deg, #00ff00,
+#fff 70%
+);
+font-weight:800; 
+}
+.callLog{
+width:50px;
+height:50px;
+background-size:cover;
+border-radius:50%;
+border:1px solid black;
+}
+#callUser{
+width:190px;
+height:130px;
+padding-top:0px;
+padding-left:70px;
+left:6%;
+background-color:red;
+font-size:20px;
+}
+#callUserImg{
+top:5%;
+left:5%;
+width:50px;
+height:50px;
+border-radius:50%;
+background-size:cover;
+border:2px solid green;
+}
+#callUserLogo{
+top:60%;
+width:200px;
+height:25px;
+padding-top:5px;
+background-color:green;
+left:13%;
+text-align:center;
+}
+#bar{
+top:86%;
+width:276px;
+height:15px;
+padding-left:10px;
+padding-right:10px;
+background-color:black;
+color:white;
+font-weight:700;
+font-size:12px;
+border-top:1px solid white;
+}
+#songMenu{
+width:296px;
+height:160px;
+background-image:url(https://d2rd7etdn93tqb.cloudfront.net/wp-content/uploads/2016/09/listening-to-music-nmf-091616.jpg);
+background-size:cover;
+text-align:center;
+font-size:25px;
+font-weight:700;
+font-style:italic;
+text-shadow:3px 4px grey;
+}
+.artist{
+width:130px;
+height:25px;
+padding-top:5px;
+padding-left:10px;
+border-top:1px solid black;
+border-bottom:1px solid black;
+background-color:none;
+font-size:18px;
+text-shadow:0px 0px grey;
+color:blue;
+text-align:left;
+}
+#songCancel{
+font-size:13px;
+left:70%;
+top:80%;
+text-shadow:0px 0px grey;
+color:black;
+text-align:center;
+background-color:red;
+padding-top:3px;
+width:80px;
+height:18px;
+border-radius:15%;
+}
+#settingsMenu{
+width:296px;
+height:160px;
+background-color:black;
+}
+#musicAdjust{
+width:276px;    
+height:29px;
+padding-top:6px;
+padding-left:10px;
+top:12%;    
+border-top:1px solid white;
+border-bottom:1px solid white;
+color:white;
+}
+#musicRange{
+position:absolute;
+top:7%;
+left:50%;
+}
+#settingsInfo{
+text-align:center;
+top:40%;
+width:296px;
+padding-top:10px;
+height:70px;
+background-color:grey;
+color:white;
+font-size:13px;
+}
+#googleMenu{
+width:296px;
+height:160px;
+background-color:white;
+}
+#searchBox{
+top:30%;
+left:25%;
+width:150px;
+height:80px;
+background-color:none;
+}
+#googleSearch{
+width:150px;
+}
+#googleImg{
+width:150px;
+height:50px;
+}
+#calcMenu{
+width:296px;
+height:160px;
+background-color:white;
+}
+#calcFrame{
+width:170px;
+height:130px;
+background-color:black;
+top:13%;
+left:40%;
+border-radius:10%;
+}
+#calcScreen{
+width:130px;
+height:26px;
+padding-top:4px;
+padding-left:5px;
+left:10%;
+top:5%;
+background-color:#ccccff;
+border-radius:5%;
+border:1px solid black;
+font-weight:700;
+font-family:times;
+}
+
+#calcButtons{
+padding:5px;
+width:135px;
+height:80px;
+background-color:none;
+top:30%;
+left:7%;
+}
+#calcButtons2{
+padding:5px;  
+width:100px;  
+height:40px;
+top:60%;
+left:-67%;
+background-color:black;
+border-radius:10%;
+}
+#calcButtons>button{
+width:23px;
+height:17px;
+font-weight:800;
+}
+#calcButtons2>button{
+width:30px;
+height:17px;
+font-weight:800;
+padding-left:2px;
+}
+#calcButtons2 button:last-child{
+width:64px;
+}
+#calcMode{
+top:10%;
+font-size:12px;
+font-weight:800;
+}
+#wallMenu{
+width:296px;
+height:160px;
+background-color:none;
+overflow-y:scroll;
+color:white;
+font-size:15px;
+font-weight:800;
+font-style:italic;
+}
+#wall1,#wall2,#wall3,#wall4{
+left:20%;
+position:relative;
+width:170px;
+height:100px;
+background-size:cover;
+diplay:inline;
+}
+#wallstop{
+position:relative;
+left:45%;
+top:80%;
+width:20px;
+height:20px;
+background-color:green;
+border-radius:50%;
+border:1px solid black;
+display:block;
+}
+
+#wall1{
+top:18%;
+background-image:url(https://wallpapershome.com/images/pages/pic_hs/12771.jpg);
+}
+#wall2{
+background-image:url(http://oswallpapers.com/wp-content/uploads/2016/06/img0.jpg);
+top:36%;
+}
+#wall3{
+background-image:url(http://www.technocrazed.com/wp-content/uploads/2015/12/Windows-XP-wallpaper-15.jpg);
+top:54%;
+}
+#wall4{
+background-image:url(https://www.technorms.com/assets/1-starter-image33.jpg);
+top:72%;
+}
+#tentacleCanvas{
+background-color:white;
+}
+#extraMenu{
+background-color:black;
+left:-59%;
+width:110px;
+height:160px;
+padding-top:10px;
+border:1px solid white;
+color:white;
+text-align:center;
+font-size:14px;
+}
+#extraMenu>p{
+color:red;
+font-size:12px;
+font-style:italic;
+}
+#hideExtraMenu{
+top:75%;
+left:70%;
+}</style>
+    </head>
+    
+    <body>
+<!--
+decoded
+decoded
+decoded
+decoded "========================"
+decoded ".                      "
+decoded ".                      "
+decoded ".   windowsX was       "
+decoded ".   created By         "
+decoded ".       alik           "
+decoded ".                      "
+decoded "======================="
+decoded.        ========
+decoded.          ====
+decoded.          ====
+decoded.       ==========
+-->
+Set Windows Color&nbsp;<input type="color" id="select">
+<br>
+Set Windows Time&nbsp;&nbsp;<input type="time"
+id="time">
+<h1>Loading..</h1>
+<!-- alik kumar ghosh -->
+    <div id="windows">
+    <div id="screen">
+    <div id="loading"></div>
+    <div id="login">
+    <div id="loginTime"></div>
+    <input id="password" 
+    contenteditable="true"
+    autocorrect="off"
+    type="number"
+    placeholder="Enter Password" autofocus
+    >
+    <div id="enter">ENTER➡️</div>
+    </div>
+    
+    <div id="menu">
+<!--logos-->
+    <div id="call">
+    <img src="https://images.vexels.com/media/users/3/137415/isolated/preview/0e475bb9b17b3fa4f94f31fba1635b8f-telephone-call-icon-logo-by-vexels.png">
+    </div><!--call-->
+    <div id="music">
+    <img src="http://downloadicons.net/sites/default/files/headphone-symbol-82537.png">
+    </div><!--music-->
+     <div id="settings">
+    <img src="http://moziru.com/images/setting-clipart-many-gear-6.png">
+    </div><!--settings-->
+     <div id="google">
+    <img src="http://diylogodesigns.com/blog/wp-content/uploads/2016/04/google-logo-icon-PNG-Transparent-Background.png">
+    </div><!--google-->
+    <div id="calculator">
+        <!-- hello world for aaaakkkkkgggg -->
+   <img src="https://www.iconexperience.com/_img/o_collection_png/green_dark_grey/512x512/plain/calculator.png">    
+    </div>
+    <div id="wallpaper">
+    <img src="https://d30y9cdsu7xlg0.cloudfront.net/png/40974-200.png">
+    </div>
+    <div id="tentacleGame">
+    <img src="http://laoblogger.com/images/clip-art-remote-clear-backround-clipart-1.jpg" 
+    >   
+    </div>
+<div id="soloCodes">
+<img 
+src="https://i1.wp.com/ww.jcount.com/wp-content/uploads/2016/10/sololearn_banner.jpg?fit=680%2C390&ssl=1"
+>
+</div>
+<div id="extraMenuLogo">
++
+<!--<img src="http://pngimg.com/uploads/brush/brush_PNG7355.png">-->
+</div>
+<!--logos-->    
+<div id="callMenu">contacts
+<div id="callUser"><p id="callUserName"
+></p>
+<div id="callUserImg"></div>
+<div id="callUserLogo"></div>
+</div><!--callUser-->
+</div> <!--akg-->
+<div id="songMenu">.......songs</div>
+<div id="songCancel">Cancel Play</div>
+<div id="settingsMenu">
+<div id="musicAdjust">
+Music-Volume
+<input
+type="range" min="0" max="100" 
+step="1"
+value="100" id="musicRange"
+>   
+</div>
+<p style="position:absolute;top:33%;left:5%;color:white;font-weight:800;">
+Windows Menu Sound</p>
+<div class="toggle" id="t1">
+<div class="left" id="l1">Off</div>
+<div class="right" id="r1">On</div>
+<div class="switch" id="s1"></div>
+<style>
+.toggle{
+top:40%;
+left:70%;
+width:60px;
+height:20px;
+padding:3px;
+background-color:red;
+border-radius:20%;
+}
+.left,.right{
+color:white;
+font-weight:800;
+text-align:center;
+}
+.left{
+width:30px;
+height:20px;
+background-color:blue;
+border-radius:20% 0% 0% 20%;
+}
+.right{
+left:50%;
+width:27px;
+height:20px;
+background-color:blue;
+border-radius:0% 20% 20% 0%;
+}
+.switch{
+width:27px;
+height:20px;
+border-radius:20% 20% 20% 20%;
+}
+</style>
+</div><!--toggle--> 
+</div><!--settingsMenu-->
+<div id="googleMenu">
+<div id="searchBox">
+<input type="search" placeholder="search" 
+id="googleSearch" 
+/>
+<button style="background-color:red">search</button>
+<img src="http://lh3.googleusercontent.com/jN9tX6dCJ6_XL9E4K1KCO2Tuwe9_rYUbwv723eu6XGI0PWGLcPs0259VscOu249PPKKcU5AOXrq6JnleEaoK6K_JvZ2PY9lw3pMApzOpTQ=s660"
+id="googleImg"
+>
+</div>    
+</div><!--googleMenu-->
+<div id="calcMenu">
+<div id="calcFrame">
+<div id="calcScreen"></div>
+<div id="calcButtons">
+<button>1</button>
+<button>2</button>
+<button>3</button>
+<button>C</button>
+<button>π</button>    
+
+<button>4</button>
+<button>5</button>
+<button>6</button>
+<button>×</button>
+<button>÷</button>   
+<!-- made by akg and ag -->
+<button>7</button>
+<button>8</button>
+<button>9</button>
+<button>+</button>
+<button>-</button>   
+
+<button>e</button>
+<button>0</button>
+<button>=</button>
+<button>^</button>
+<button>⬅️</button>  
+</div>
+<div id="calcButtons2">
+<button>sin</button>
+<button>cos</button>
+<button>tan</button>
+<button>root</button>
+<button>c-root</button>
+</div>
+</div><!--calcFrame-->  
+<div id="calcMode" >
+<input type="checkbox" >
+Scientific mode<br>
+<input type="checkbox">
+alert error type
+</div> 
+</div><!--calcMenu-->
+<div id="wallMenu">
+Slide down to change wallpaper
+<div id="wall1" class="walls"></div>
+<div id="wall2" class="walls"></div>
+<div id="wall3" class="walls"></div>
+<div id="wall4" class="walls"></div>
+<div id="wallstop"></div>
+</div><!--wallMenu-->
+<canvas id="tentacleCanvas">
+</canvas>
+  
+<iframe
+src="#" 
+id="soloMenu"
+width="100%"
+height="170"
+>
+</iframe>
+</div><!--menu-->
+<div id="extraMenu">
+made by alik
+<p>developing..</p>
+<p>pending...</p>
+<p>pending...</p>
+<div id="hideExtraMenu">-</div>
+</div>
+<div id="backToMenu">menu</div>
+    </div><!--id='screen'-->
+   <div id="stand"></div>
+       
+   <div id="bar"></div>
+    </div><!--id='alik'-->
+<!--<div id="mousepad">
+    <div id="mouse"></div>
+    </div>  
+    -->
+    
+    </body>
+</html>
